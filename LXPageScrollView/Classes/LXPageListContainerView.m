@@ -98,30 +98,24 @@ static NSString *const kCollectionViewCellID = @"kCollectionViewCellID";
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndDecelerating:)]) {
         [self.delegate listContainerDidEndDecelerating:self];
     }
-//    self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndDragging:willDecelerate:)]) {
         [self.delegate listContainerDidEndDragging:self willDecelerate:decelerate];
     }
-//    self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndScrollingAnimation:)]) {
         [self.delegate listContainerDidEndScrollingAnimation:self];
     }
-//    self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerViewDidScroll:)]) {
         [self.delegate listContainerViewDidScroll:self];
     }
-//    if (scrollView.isTracking || scrollView.isDecelerating) {
-//        self.mainTableView.scrollEnabled = NO;
-//    }
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

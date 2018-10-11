@@ -55,7 +55,13 @@ static NSString *const kTableViewCellID = @"kTableViewCellID";
         self.mainTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(tableHeaderViewInPageScrollView:)]) {
-        self.mainTableView.tableHeaderView = [self.delegate tableHeaderViewInPageScrollView:self];
+        UIView *headerView = [self.delegate tableHeaderViewInPageScrollView:self];
+        CGFloat headerHeight = 0;
+        if (self.delegate && [self.delegate tableHeaderViewHeightInPageScrollView:self]) {
+            headerHeight = [self.delegate tableHeaderViewHeightInPageScrollView:self];
+        }
+        headerView.frame = CGRectMake(0, 0, self.bounds.size.width, headerHeight);
+        self.mainTableView.tableHeaderView = headerView;
     }
     [self.mainTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kTableViewCellID];
     [self addSubview:self.mainTableView];
@@ -203,24 +209,30 @@ static NSString *const kTableViewCellID = @"kTableViewCellID";
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerViewDidScroll:)]) {
         [self.delegate listContainerViewDidScroll:containerView];
     }
+    if (containerView.collectionView.isTracking || containerView.collectionView.isDecelerating) {
+        self.mainTableView.scrollEnabled = NO;
+    }
 }
 
 - (void)listContainerDidEndDecelerating:(LXPageListContainerView *)containerView {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndDecelerating:)]) {
         [self.delegate listContainerDidEndDecelerating:containerView];
     }
+    self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)listContainerDidEndDragging:(LXPageListContainerView *)containerView willDecelerate:(BOOL)decelerate {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndDragging:willDecelerate:)]) {
         [self listContainerDidEndDragging:containerView willDecelerate:decelerate];
     }
+    self.mainTableView.scrollEnabled = YES;
 }
 
 - (void)listContainerDidEndScrollingAnimation:(LXPageListContainerView *)containerView {
     if (self.delegate && [self.delegate respondsToSelector:@selector(listContainerDidEndScrollingAnimation:)]) {
         [self listContainerDidEndScrollingAnimation:containerView];
     }
+    self.mainTableView.scrollEnabled = YES;
 }
 
 @end
