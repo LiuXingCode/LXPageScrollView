@@ -1,0 +1,16 @@
+PODS:
+  - LXScrollContentView (1.6)
+
+DEPENDENCIES:
+  - LXScrollContentView
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - LXScrollContentView
+
+SPEC CHECKSUMS:
+  LXScrollContentView: 0bd069963ecadb158c0ffad8a85dc2eef8a29fa1
+
+PODFILE CHECKSUM: f5f68de0237bfca91e77318b7d990437bf987f1d
+
+COCOAPODS: 1.6.0.beta.1
